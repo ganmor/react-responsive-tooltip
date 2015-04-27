@@ -6,13 +6,17 @@
 		<title></title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<script type="text/javascript">
 
-
-		</script>
 	</head>
 
 	<body>
+
+		<div id='tooltip-container'></div>
 		<script type="text/javascript" src="assets/tooltip.bundle.js"></script>
+		<script type="text/javascript">
+			var ExampleTootip = require('./tooltip');
+			var React = require('react');
+			React.render(ExampleTootip({}), document.querySelector('#tooltip-container'))
+		</script>
 	</body>
 </html>
