@@ -2,73 +2,15 @@
 
 var React = require("react");
 var objectAssign = require('object-assign');
+var TooltipInner = require('./tooltip-inner');
+var TooltipTrigger = require('./tooltip-trigger');
 
 /*
 *	A tooltip component that has a default style
 */
 
 
-/* The content of the tooltip while fully displayed */
-var TooltipInner = React.createClass({
 
-	propTypes: {
-		className :  React.PropTypes.string,
-		style :  React.PropTypes.object
-	},
-
-	getInitialState : function () {
-		var overlay = document.createElement('div');
-		return {
-			visible : false,
-			overlayDiv : overlay
-		};
-	},
-
-
-	componentDidUpdate : function () {
-		React.render(this._renderOverlay(), this.state.overlayDiv);
-	},
-
-	componentDidMount : function () {
-		document.body.appendChild(this.state.overlayDiv);
-	},
-
-	componentWillUnmount : function () {
-		if (this.state.overlayDiv && this.state.overlayDiv.parentNode) {
-			this.state.overlayDiv.parentNode.removeElement(this.state.overlayDiv);
-		}
-	},
-
-	_renderOverlay : function () {
-		var style;
-		// TODO
-		return (<div>{this.props.children}</div>);
-	},
-
-	render : function () {
-		return false;
-	}
-});
-
-
-/* The button that triggers the tootip */
-var TooltipTrigger = React.createClass({
-	propTypes: {
-		className :  React.PropTypes.string,
-		style :  React.PropTypes.object
-	},
-
-	onClick : function (e) {
-		this.props.onTrigger();
-	},
-
-	render : function () {
-		var content = this.props.children || (<span>?</span>);
-		return (
-			<span onClick={this.props.onClick}>{content}</span>
-		);
-	}
-});
 
 
 
@@ -83,22 +25,55 @@ var ToolTipOuter = React.createClass({
 		displayed : React.PropTypes.boolean
 	},
 
-	getInitialState : function () {
+	getDefaultStyle : function () {
 		return {
-			displayed : this.props.displayed
+			backgroundColor:'#aaa',
+			color:'white',
+			borderRadius:'15px',
+			width:'10px',
+			height:'10px',
+			textAlign:'center',
+			padding:'5px',
+			lineHeight:'10px',
+			fontFamily:'arial',
+			fontSize:'12px',
+			cursor:'pointer'
 		};
 	},
 
-	setTooltipActive : function () {
+	componentDidMount : function () {
+		this.recomputePosition();
+	},
+
+	recomputePosition : function () {
+		this.setState({
+			position : window.getComputedStyle(this.getDOMNode())
+		});
+	},
+
+	getInitialState : function () {
+		return {
+			displayed : this.props.displayed,
+			position : null
+		};
+	},
+
+	setTooltipDisplayed : function () {
 		this.setState({
 			displayed : true
+		});
+	},
+
+	setTooltipHidden: function () {
+		this.setState({
+			displayed : false
 		});
 	},
 
 	render : function () {
 		var style, className;
 
-		style = {};
+		style = this.getDefaultStyle();
 		style.position = 'relative';
 
 		objectAssign(style, this.props.style);
@@ -108,14 +83,18 @@ var ToolTipOuter = React.createClass({
 			<div style={style} className={className}>
 
 				<TooltipTrigger className={this.props.btnClassName}
-						onTrigger={this.setTooltipActive}
+						onDisplayRequest={this.setTooltipDisplayed}
+						onHideRequest={this.setTooltipHidden}
+						tooltipDisplayed={this.state.displayed}
 						style={this.props.btnStyle}>
 						{this.props.btnLayout}
 				</TooltipTrigger>
 
-				<TooltipInner>
-					{this.props.children}
-				</TooltipInner>
+				{this.state.displayed && this.state.position &&
+					(<TooltipInner position={this.state.position} onHideRequest={this.setTooltipHidden}>
+						{this.props.children}
+					</TooltipInner>
+				)}
 
 			</div>
 		);
