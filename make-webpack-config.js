@@ -27,9 +27,10 @@ function buildConfig(options) {
 	// Entry
 	var entry;
 	if (!dev) {
-		entry = './src/tooltip.jsx';
+		entry = './src/script/tooltip.jsx';
 	} else {
-		entry = ['webpack/hot/only-dev-server', './src/tooltip.jsx'];
+		console.log('is dev');
+		entry = ['webpack/hot/only-dev-server', './src/script/example-tooltip.jsx'];
 	}
 
 	// Output
@@ -93,9 +94,10 @@ function buildConfig(options) {
 			loaders: [
 				{ test: /\.css$/, loader: 'style-loader!css-loader' },
 				{ test: /\.(jpe?g|png|gif)$/, loader: 'url-loader?limit=10000' },
-				jsLoader
+				{ test: /\.jsx$/, exclude: /node_modules/, loaders: dev ? ["react-hot-loader", "babel-loader"] : ["babel-loader"] }
 			]
 		},
+
 
 		plugins: plugins,
 
@@ -113,5 +115,7 @@ function buildConfig(options) {
 }
 
 module.exports = function(options) {
+
+	console.log(buildConfig(options));
 	return buildConfig(options);
 };
