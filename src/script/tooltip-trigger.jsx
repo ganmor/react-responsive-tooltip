@@ -1,15 +1,24 @@
 var React = require("react");
 
-/* The button that triggers the tootip */
+/* The button that triggers the tooltip */
 var TooltipTrigger = React.createClass({
+
 	propTypes: {
 		className :  React.PropTypes.string,
 		style :  React.PropTypes.object
 	},
 
-	componentDidMount : function () {
-		// Start listenning to move on the document if any move occur hover the element, display the tooltip , if any move occurs outside, hide
-	},
+	handleMouseMove: function(e) {
+    this.setState({windowWidth: window.innerWidth});
+  },
+
+  componentDidMount: function () {
+    window.addEventListener('mouseove', this.handleMouseMove);
+  },
+
+  componentWillUnmount: function () {
+    window.removeEventListener('mouseove', this.handleMouseMove);
+  },
 
 	onClick : function (e) {
 		if (this.props.tooltipDisplayed) {

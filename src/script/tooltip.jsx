@@ -10,10 +10,6 @@ var TooltipTrigger = require('./tooltip-trigger');
 */
 
 
-
-
-
-
 /* The Main component container */
 var ToolTipOuter = React.createClass({
 
