@@ -5,12 +5,24 @@ var objectAssign = require('object-assign');
 var TooltipInner = require('./tooltip-inner');
 var TooltipTrigger = require('./tooltip-trigger');
 
+
+var isDescendant = function(parent, child) {
+     var node = child.parentNode;
+     while (node != null) {
+         if (node == parent) {
+             return true;
+         }
+         node = node.parentNode;
+     }
+     return false;
+};
+
 /*
 *	A tooltip component that has a default style
 */
 
 
-/* The Main component container */
+/** The Main component container **/
 var ToolTipOuter = React.createClass({
 
 	propTypes: {
@@ -21,25 +33,40 @@ var ToolTipOuter = React.createClass({
 		displayed : React.PropTypes.boolean
 	},
 
-	getDefaultStyle : function () {
+	//
+	//	Life Cycle
+	//
+
+	getInitialState : function () {
 		return {
-			backgroundColor:'#aaa',
-			color:'white',
-			borderRadius:'15px',
-			width:'10px',
-			height:'10px',
-			textAlign:'center',
-			padding:'5px',
-			lineHeight:'10px',
-			fontFamily:'arial',
-			fontSize:'12px',
-			cursor:'pointer'
+			displayed : this.props.displayed,
+			clicked : false,
+			position : null
 		};
 	},
 
 	componentDidMount : function () {
 		this.recomputePosition();
+		window.addEventListener('mousemove', this.handleMouseMove);
 	},
+
+  componentWillUnmount: function () {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+  },
+
+
+	handleMouseMove: function(e) {
+		var target = document.elementFromPoint(e.pageX, e.pageY);
+		if (target === this.getDOMNode() || isDescendant(this.getDOMNode(), target)) {
+			this.setTooltipDisplayed();
+		} else {
+			this.setTooltipHidden();
+		}
+  },
+
+	//
+	//	Utils
+	//
 
 	recomputePosition : function () {
 		this.setState({
@@ -47,11 +74,30 @@ var ToolTipOuter = React.createClass({
 		});
 	},
 
-	getInitialState : function () {
-		return {
-			displayed : this.props.displayed,
-			position : null
-		};
+
+
+	//
+	//	State Control
+	//
+
+	toggle : function () {
+		if (this.state.clicked) {
+			this.setTooltipUnclicked();
+		} else {
+			this.setTooltipClicked();
+		}
+	},
+
+	setTooltipUnclicked : function () {
+		this.setState({
+			clicked : false
+		});
+	},
+
+	setTooltipClicked : function () {
+		this.setState({
+			clicked : true
+		});
 	},
 
 	setTooltipDisplayed : function () {
@@ -66,10 +112,14 @@ var ToolTipOuter = React.createClass({
 		});
 	},
 
+	//
+	//	Rendering logic
+	//
+
 	render : function () {
 		var style, className;
 
-		style = this.getDefaultStyle();
+		style = {};
 		style.position = 'relative';
 
 		objectAssign(style, this.props.style);
@@ -79,15 +129,15 @@ var ToolTipOuter = React.createClass({
 			<div style={style} className={className}>
 
 				<TooltipTrigger className={this.props.btnClassName}
-						onDisplayRequest={this.setTooltipDisplayed}
-						onHideRequest={this.setTooltipHidden}
+						onToggle={this.toggle}
 						tooltipDisplayed={this.state.displayed}
+						clicked={this.state.clicked}
 						style={this.props.btnStyle}>
 						{this.props.btnLayout}
 				</TooltipTrigger>
 
-				{this.state.displayed && this.state.position &&
-					(<TooltipInner position={this.state.position} onHideRequest={this.setTooltipHidden}>
+				{(this.state.displayed || this.state.clicked) && this.state.position &&
+					(<TooltipInner position={this.state.position} onHideRequest={this.setTooltipUnclicked} clicked={this.state.clicked}>
 						{this.props.children}
 					</TooltipInner>
 				)}

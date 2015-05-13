@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require("react");
 
 
@@ -49,6 +51,8 @@ var TooltipInner = React.createClass({
 	_renderOverlay : function () {
 		var style, position;
 
+		if (!this.props.clicked) { return (<span></span>); }
+
 		style = {
 			position:'fixed',
 			opacity:'0',
@@ -63,12 +67,37 @@ var TooltipInner = React.createClass({
 		return (<div style={style} onClick={this.handleOverlayClick}>this should be transparent overlay that cover the whole window</div>);
 	},
 
+	getPreferedHorizontalDir : function (dir) {
+		var hasEnoughtSpace;
+		if (dir === 'left' || dir === 'right') {
+			return dir;
+		}
+	},
+
+	getPreferedVerticalDir : function (dir) {
+		return dir;
+	},
+
 	render : function () {
 
 		var style = this.getDefaultStyle();
-		style.top = this.props.position.top;
-		style.left = this.props.position.left;
+		var windowWidth = window.innerWidth;
+		var windowHeight = windowWidth.innerHeight;
 
+		var verticalDir =  this.getPreferedVerticalDir(this.props.verticalDir);
+		var horizontalDir = this.getPreferedHorizontalDir(this.props.horizontalDir);
+
+		if (verticalDir === 'left') {
+		 	style.left = this.props.position.left;
+		} else {
+			style.right = windowWidth - this.props.position.left;
+		}
+
+		if (horizontalDir === 'down') {
+			style.top = this.props.position.top;
+		} else {
+			style.bottom = windowHeight - this.props.position.top;
+		}
 
 		return <div style={style}>{this.props.children}</div>;
 	}
