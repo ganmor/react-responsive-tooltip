@@ -55,7 +55,6 @@ var TooltipInner = React.createClass({
 		return {
 			position:'absolute',
 			background : '#000000',
-			opacity: '0.8',
 			padding:'5px',
 			color:'white'
 		};
