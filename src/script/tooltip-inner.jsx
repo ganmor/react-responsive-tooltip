@@ -6,7 +6,7 @@ var React = require("react");
 /* The content of the tooltip while fully displayed */
 var TooltipInner = React.createClass({
 
-	static : {
+	statics : {
 			GetParentOverflowScroll : function (target) {
 
 			 if (target === window || target === document) {
@@ -18,7 +18,17 @@ var TooltipInner = React.createClass({
 					if (overflowY === 'auto' || overflowY === 'scroll') {return  el ;}
 				}
 				return window;
-			}
+			},
+			isDescendant : function(parent, child) {
+				 var node = child.parentNode;
+				 while (node !== null) {
+						 if (node === parent) {
+								 return true;
+						 }
+						 node = node.parentNode;
+				 }
+				 return false;
+		}
 	},
 
 	propTypes: {
@@ -36,7 +46,8 @@ var TooltipInner = React.createClass({
 		var overlay = document.createElement('div');
 		return {
 			visible : false,
-			overlayDiv : overlay
+			overlayDiv : overlay,
+			position : null
 		};
 	},
 
@@ -50,9 +61,13 @@ var TooltipInner = React.createClass({
 		};
 	},
 
+
+
 	//
 	//	Life cycle
 	//
+
+
 
 	componentDidUpdate : function () {
 		React.render(this._renderOverlay(), this.state.overlayDiv);
@@ -61,6 +76,18 @@ var TooltipInner = React.createClass({
 	componentDidMount : function () {
 		document.body.appendChild(this.state.overlayDiv);
 		React.render(this._renderOverlay(), this.state.overlayDiv);
+
+		this.setState({
+			containingNode : this.getDOMNode(),
+			position : this.props.position
+		});
+	},
+
+	componentWillReceiveProps : function ()  {
+		this.setState({
+			containingNode : this.getDOMNode(),
+			position : this.props.position
+		});
 	},
 
 	componentWillUnmount : function () {
@@ -68,6 +95,19 @@ var TooltipInner = React.createClass({
 			this.state.overlayDiv.parentNode.removeChild(this.state.overlayDiv);
 		}
 	},
+
+
+
+	handleMouseMove: function(e) {
+		var target = document.elementFromPoint(e.pageX, e.pageY);
+		if (target === this.getDOMNode() || TooltipInner.isDescendant(this.getDOMNode(), target)) {
+			this.setTooltipDisplayed();
+		} else {
+			this.setTooltipHidden();
+		}
+  },
+
+
 
 	//
 	//	Utils
@@ -77,12 +117,16 @@ var TooltipInner = React.createClass({
 
 	},
 
-	getDefaultWidth : function () {
-	//		if (
+	getMaxWidth : function () {
+		if (this.getHorizontalDir() === 'left') {
+			return this.state.position.left;
+		} else  {
+			return TooltipInner.GetParentOverflowScroll(this.state.containingNode).innerWidth - this.state.position.left;
+		}
 	},
 
-	getWidth : function () {
-		return this.props.width || this.getDefaultWidth();
+	getMaxHeight : function () { // TODO
+
 	},
 
 	handleOverlayClick : function (e) {
@@ -92,6 +136,10 @@ var TooltipInner = React.createClass({
 
 	_renderOverlay : function () {
 		var style, position;
+
+		if (!this.state.containingNode || !this.state.position) {
+			return (<span></span>);
+		}
 
 		if (!this.props.clicked) { return (<span></span>); }
 
@@ -109,14 +157,14 @@ var TooltipInner = React.createClass({
 		return (<div style={style} onClick={this.handleOverlayClick}>this should be transparent overlay that cover the whole window</div>);
 	},
 
-	getPreferedHorizontalDir : function (dir) {
+	getHorizontalDir : function (dir) {
 		if (this.props.horizontalDir === 'left' || this.props.horizontalDir === 'right') {
 			return this.props.horizontalDir;
 		}
-		//return this.props.position.left >
+		return this.props.position.left > this.state.containingNode.offsetHeight;
 	},
 
-	getPreferedVerticalDir : function (dir) {
+	getVerticalDir : function (dir) {
 		return dir;
 	},
 
@@ -126,20 +174,28 @@ var TooltipInner = React.createClass({
 		var windowWidth = window.innerWidth;
 		var windowHeight = windowWidth.innerHeight;
 
-		var verticalDir =  this.getPreferedVerticalDir();
-		var horizontalDir = this.getPreferedHorizontalDir(this.props.horizontalDir);
+				if (!this.state.containingNode || !this.state.position) {
+			return (<span></span>);
+		}
+
+		var verticalDir =  this.getVerticalDir();
+		var horizontalDir = this.getHorizontalDir();
+
+
 
 		if (verticalDir === 'left') {
-		 	style.left = this.props.position.left;
+			style.right = 0;
 		} else {
-			style.right = windowWidth - this.props.position.left;
+			style.left = 0;
 		}
 
-		if (horizontalDir === 'down') {
-			style.top = this.props.position.top;
+		if (horizontalDir === 'top') {
+			style.bottom = TooltipInner.GetParentOverflowScroll(this.state.containingNode) - this.state.position.top;
 		} else {
-			style.bottom = windowHeight - this.props.position.top;
+			style.top = this.state.position.height;
 		}
+
+		style.maxWidth = this.getMaxWidth();
 
 		return <div style={style}>{this.props.children}</div>;
 	}

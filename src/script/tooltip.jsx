@@ -16,7 +16,7 @@ var TooltipTrigger = require('./tooltip-trigger');
 /** The Main component container **/
 var ToolTipOuter = React.createClass({
 
-	static : {
+	statics : {
 		isDescendant : function(parent, child) {
 				 var node = child.parentNode;
 				 while (node !== null) {
@@ -58,33 +58,31 @@ var ToolTipOuter = React.createClass({
 	},
 
 	componentDidMount : function () {
-		this.recomputePosition();
-		window.addEventListener('mousemove', this.handleMouseMove);
+		document.addEventListener('mousemove', this.handleMouseMove);
+		this.setState({
+			position : this.getDOMNode().getBoundingClientRect()
+		});
+	},
+
+
+	componentWillReceiveProps : function () {
+		this.setState({
+			position : this.getDOMNode().getBoundingClientRect()
+		});
 	},
 
   componentWillUnmount: function () {
-    window.removeEventListener('mousemove', this.handleMouseMove);
+    document.removeEventListener('mousemove', this.handleMouseMove);
   },
-
 
 	handleMouseMove: function(e) {
 		var target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || this.isDescendant(this.getDOMNode(), target)) {
+		if (target === this.getDOMNode() || ToolTipOuter.isDescendant(this.getDOMNode(), target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();
 		}
   },
-
-	//
-	//	Utils
-	//
-
-	recomputePosition : function () {
-		this.setState({
-			position : window.getComputedStyle(this.getDOMNode())
-		});
-	},
 
 
 
@@ -114,7 +112,8 @@ var ToolTipOuter = React.createClass({
 
 	setTooltipDisplayed : function () {
 		this.setState({
-			displayed : true
+			displayed : true,
+			position : this.getDOMNode().getBoundingClientRect()
 		});
 	},
 
@@ -148,8 +147,9 @@ var ToolTipOuter = React.createClass({
 						{this.props.btnLayout}
 				</TooltipTrigger>
 
-				{(this.state.displayed || this.state.clicked) && this.state.position &&
-					(<TooltipInner position={this.state.position}
+				{(this.state.displayed || this.state.clicked) &&
+					(<TooltipInner
+							position={this.state.position}
 							onHideRequest={this.setTooltipUnclicked}
 							clicked={this.state.clicked}
 							style={this.props.innerStyle}>
