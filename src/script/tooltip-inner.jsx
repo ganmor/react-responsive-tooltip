@@ -3,13 +3,21 @@
 
 var React = require("react");
 
-
 /* The content of the tooltip while fully displayed */
 var TooltipInner = React.createClass({
 
 	static : {
-			GetParentOverflowScroll : function () {
+			GetParentOverflowScroll : function (target) {
 
+			 if (target === window || target === document) {
+					return document.body;
+				}
+
+				for (var el = target; el; el = el.parentElement) {
+					var overflowY = window.getComputedStyle(el).overflowY;
+					if (overflowY === 'auto' || overflowY === 'scroll') {return  el ;}
+				}
+				return window;
 			}
 	},
 
