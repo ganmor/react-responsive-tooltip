@@ -1,5 +1,6 @@
 var Tooltip = require('./tooltip.jsx');
 var React = require('react');
+var ColorPicker = require('react-color-picker');
 
 
 

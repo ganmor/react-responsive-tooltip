@@ -6,6 +6,7 @@ var TooltipInner = require('./tooltip-inner');
 var TooltipTrigger = require('./tooltip-trigger');
 
 
+
 var isDescendant = function(parent, child) {
      var node = child.parentNode;
      while (node != null) {
