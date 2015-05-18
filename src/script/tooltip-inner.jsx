@@ -1,3 +1,4 @@
+/*global window, document */
 'use strict';
 
 var React = require("react");
@@ -6,9 +7,21 @@ var React = require("react");
 /* The content of the tooltip while fully displayed */
 var TooltipInner = React.createClass({
 
+	static : {
+			GetParentOverflowScroll : function () {
+
+			}
+	},
+
 	propTypes: {
+
+		/* Customize style */
 		className :  React.PropTypes.string,
-		style :  React.PropTypes.object
+		style :  React.PropTypes.object,
+
+		/* Force the width of the inner tooltip */
+		width : React.PropTypes.string,
+		height : React.PropTypes.string
 	},
 
 	getInitialState : function () {
@@ -29,6 +42,10 @@ var TooltipInner = React.createClass({
 		};
 	},
 
+	//
+	//	Life cycle
+	//
+
 	componentDidUpdate : function () {
 		React.render(this._renderOverlay(), this.state.overlayDiv);
 	},
@@ -42,6 +59,22 @@ var TooltipInner = React.createClass({
 		if (this.state.overlayDiv && this.state.overlayDiv.parentNode) {
 			this.state.overlayDiv.parentNode.removeChild(this.state.overlayDiv);
 		}
+	},
+
+	//
+	//	Utils
+	//
+
+	getAvailableRightSpace : function () {
+
+	},
+
+	getDefaultWidth : function () {
+	//		if (
+	},
+
+	getWidth : function () {
+		return this.props.width || this.getDefaultWidth();
 	},
 
 	handleOverlayClick : function (e) {
@@ -69,10 +102,10 @@ var TooltipInner = React.createClass({
 	},
 
 	getPreferedHorizontalDir : function (dir) {
-		var hasEnoughtSpace;
-		if (dir === 'left' || dir === 'right') {
-			return dir;
+		if (this.props.horizontalDir === 'left' || this.props.horizontalDir === 'right') {
+			return this.props.horizontalDir;
 		}
+		//return this.props.position.left >
 	},
 
 	getPreferedVerticalDir : function (dir) {
@@ -85,7 +118,7 @@ var TooltipInner = React.createClass({
 		var windowWidth = window.innerWidth;
 		var windowHeight = windowWidth.innerHeight;
 
-		var verticalDir =  this.getPreferedVerticalDir(this.props.verticalDir);
+		var verticalDir =  this.getPreferedVerticalDir();
 		var horizontalDir = this.getPreferedHorizontalDir(this.props.horizontalDir);
 
 		if (verticalDir === 'left') {
@@ -102,6 +135,7 @@ var TooltipInner = React.createClass({
 
 		return <div style={style}>{this.props.children}</div>;
 	}
+
 });
 
 module.exports = TooltipInner;

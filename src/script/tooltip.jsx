@@ -1,3 +1,4 @@
+/*global window, document */
 'use strict';
 
 var React = require("react");
@@ -7,17 +8,6 @@ var TooltipTrigger = require('./tooltip-trigger');
 
 
 
-var isDescendant = function(parent, child) {
-     var node = child.parentNode;
-     while (node != null) {
-         if (node == parent) {
-             return true;
-         }
-         node = node.parentNode;
-     }
-     return false;
-};
-
 /*
 *	A tooltip component that has a default style
 */
@@ -25,6 +15,19 @@ var isDescendant = function(parent, child) {
 
 /** The Main component container **/
 var ToolTipOuter = React.createClass({
+
+	static : {
+		isDescendant : function(parent, child) {
+				 var node = child.parentNode;
+				 while (node !== null) {
+						 if (node === parent) {
+								 return true;
+						 }
+						 node = node.parentNode;
+				 }
+				 return false;
+		}
+	},
 
 	propTypes: {
 
@@ -66,7 +69,7 @@ var ToolTipOuter = React.createClass({
 
 	handleMouseMove: function(e) {
 		var target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || isDescendant(this.getDOMNode(), target)) {
+		if (target === this.getDOMNode() || this.isDescendant(this.getDOMNode(), target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();

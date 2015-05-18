@@ -1,6 +1,7 @@
 var Tooltip = require('./tooltip.jsx');
 var React = require('react');
 var ColorPicker = require('react-color-picker');
+var Draggable = require("react-draggable");
 
 
 
@@ -13,12 +14,13 @@ var ExampleSheet = React.createClass({
 				<h2>Tooltip with a default layout</h2>
 				<p>React tooltip has a default style, this is the moist simple use case</p>
 				<p><i>You can drag the tooltip around while open to see the content adjust to the position</i></p>
-
-				<div>
+				<Draggable>
+					<div>
 						<Tooltip>
 							This is an example content, it has a default style but you can customize it to fit your needs
 						</Tooltip>
-				</div>
+					</div>
+				</Draggable>
 
 
 				<h2>Customizz the tooltip trigger</h2>
