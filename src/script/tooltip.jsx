@@ -26,16 +26,24 @@ var isDescendant = function(parent, child) {
 var ToolTipOuter = React.createClass({
 
 	propTypes: {
+
+		/* Style and className of the container */
 		className :  React.PropTypes.string,
-		btnClassName : React.PropTypes.string,
 		style :  React.PropTypes.object,
+
+		/* Style and class of the tooltip trigger */
+		btnClassName : React.PropTypes.string,
 		btnStyle :  React.PropTypes.object,
+
+		/* Style and class of the tooltip content */
+		innerStyle : React.PropTypes.object,
 		displayed : React.PropTypes.boolean
 	},
 
 	//
 	//	Life Cycle
 	//
+
 
 	getInitialState : function () {
 		return {
@@ -137,7 +145,10 @@ var ToolTipOuter = React.createClass({
 				</TooltipTrigger>
 
 				{(this.state.displayed || this.state.clicked) && this.state.position &&
-					(<TooltipInner position={this.state.position} onHideRequest={this.setTooltipUnclicked} clicked={this.state.clicked}>
+					(<TooltipInner position={this.state.position}
+							onHideRequest={this.setTooltipUnclicked}
+							clicked={this.state.clicked}
+							style={this.props.innerStyle}>
 						{this.props.children}
 					</TooltipInner>
 				)}
