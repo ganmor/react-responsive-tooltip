@@ -1,7 +1,14 @@
+
+/*global document */
+
+'use strict';
+
 var Tooltip = require('./tooltip.jsx');
 var React = require('react');
 var ColorPicker = require('react-color-picker');
 var Draggable = require("react-draggable");
+import './lib/color-picker.css';
+
 
 
 
@@ -24,6 +31,12 @@ var ExampleSheet = React.createClass({
 
 
 				<h2>Customizz the tooltip trigger</h2>
+
+					<Tooltip>
+						<div>
+							<ColorPicker  />
+						</div>
+					</Tooltip>
 
 
 				<h2>Customize the tooltip inner content</h2>
