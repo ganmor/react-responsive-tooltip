@@ -1,0 +1,135 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . C:\Users\GANMOR\AppData\Roaming\npm-cache\3a52ce78-.lock
+11 verbose tar pack [ 'C:\\Users\\GANMOR\\AppData\\Roaming\\npm-cache\\react-responsive-tooltip\\0.0.4\\package.tgz',
+11 verbose tar pack   '.' ]
+12 verbose tarball C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package.tgz
+13 verbose folder .
+14 info prepublish react-responsive-tooltip@0.0.4
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. C:\Users\GANMOR\AppData\Roaming\npm-cache\1f1177db-tar.lock
+17 silly lockFile 3986b003-onsive-tooltip-0-0-4-package-tgz tar://C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package.tgz
+18 verbose lock tar://C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package.tgz C:\Users\GANMOR\AppData\Roaming\npm-cache\3986b003-onsive-tooltip-0-0-4-package-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile 3986b003-onsive-tooltip-0-0-4-package-tgz tar://C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package.tgz
+22 silly lockFile 3986b003-onsive-tooltip-0-0-4-package-tgz tar://C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package.tgz
+23 silly lockFile 5d5ee1c5-responsive-tooltip-0-0-4-package C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package
+24 verbose lock C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package C:\Users\GANMOR\AppData\Roaming\npm-cache\5d5ee1c5-responsive-tooltip-0-0-4-package.lock
+25 silly lockFile 5d5ee1c5-responsive-tooltip-0-0-4-package C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package
+26 silly lockFile 5d5ee1c5-responsive-tooltip-0-0-4-package C:\Users\GANMOR\AppData\Roaming\npm-cache\react-responsive-tooltip\0.0.4\package
+27 silly lockFile 3a52ce78- .
+28 silly lockFile 3a52ce78- .
+29 silly publish { name: 'react-responsive-tooltip',
+29 silly publish   version: '0.0.4',
+29 silly publish   description: 'A react responsive tooltip component',
+29 silly publish   author: { name: 'Morgan Laupies', email: 'morgan.laupies@gmail.com' },
+29 silly publish   main: 'src/script/tooltip.jsx',
+29 silly publish   repository:
+29 silly publish    { type: 'git',
+29 silly publish      url: 'https://github.com/ganmor/react-tooltip.git' },
+29 silly publish   src: 'src',
+29 silly publish   test: 'test',
+29 silly publish   dependencies: { immutable: '^3.7.4', react: '0.13.3' },
+29 silly publish   keywords: [ 'react', 'component', 'tooltip', 'tooltip' ],
+29 silly publish   devDependencies:
+29 silly publish    { 'babel-core': '^5.0.12',
+29 silly publish      'babel-loader': '^5.0.0',
+29 silly publish      'css-loader': '~0.9.0',
+29 silly publish      grunt: '~0.4.5',
+29 silly publish      'grunt-contrib-clean': '~0.6.0',
+29 silly publish      'grunt-contrib-connect': '~0.8.0',
+29 silly publish      'grunt-contrib-copy': '~0.5.0',
+29 silly publish      'grunt-karma': '~0.8.3',
+29 silly publish      'grunt-open': '~0.2.3',
+29 silly publish      'grunt-webpack': '~1.0.8',
+29 silly publish      'imports-loader': '^0.6.3',
+29 silly publish      'jsxhint-loader': '~0.2.0',
+29 silly publish      karma: '~0.12.21',
+29 silly publish      'karma-chrome-launcher': '~0.1.4',
+29 silly publish      'karma-firefox-launcher': '~0.1.3',
+29 silly publish      'karma-jasmine': '~0.1.5',
+29 silly publish      'karma-phantomjs-launcher': '~0.1.3',
+29 silly publish      'karma-script-launcher': '~0.1.0',
+29 silly publish      'karma-webpack': '~1.2.2',
+29 silly publish      'load-grunt-tasks': '~0.6.0',
+29 silly publish      'react-color-picker': '^2.1.9',
+29 silly publish      'react-draggable': '^0.7.4',
+29 silly publish      'react-hot-loader': '1.2.4',
+29 silly publish      'sass-loader': '^1.0.0',
+29 silly publish      'style-loader': '~0.8.0',
+29 silly publish      'url-loader': '~0.5.5',
+29 silly publish      webpack: '1.8.0',
+29 silly publish      'webpack-dev-server': '1.8.0' },
+29 silly publish   readme: 'A React responsive and customizable tooltip component\r\n\r\nWorks on desktop and touch device.\r\nDisplayed on touch on touch device, hidden when any part of the page is touched again\r\n\r\n# Basic Usage\r\n\r\nThe tooltip has a default style and a default positionning configuration\r\n\r\n```\r\n<ToolTip>\r\n  My fabulous tooltip content\r\n</ToolTip>\r\n```\r\n\r\n## Available Props\r\n\r\n\r\n| Prop name     | Prop type     | Default   |\r\n| ------------- |:-------------:| ---------:|\r\n| className     | string        | undefined |\r\n| style         | object        | undefined |\r\n| btnClassName  | string        | undefined |\r\n| btnStyle      | object        | undefined |\r\n| innerStyle    | object        | undefined |\r\n| displayed     | bool          | false     |\r\n\r\n\r\n# Customization\r\n\r\nYou can override tooltip popover style with props innerStyle\r\n\r\nIf you want override some default style, you can import the default style and update it.\r\n\r\n\r\n```javascript\r\nimport defaultInnerStyle from \'react-responsive-tooltip/src/script/styles/tooltip-inner\';\r\n\r\n// defaultInnerStyle is an immutable map\r\nconst innerStyle = defaultInnerStyle.set(\'fontSize\', \'10pt\');\r\n\r\n<Tooltip innerStyle={innerStyle}>\r\n\t...\r\n</Tooltip>\r\n```\r\n\r\n\r\n\r\n# Example\r\n\r\n```javascript\r\n\'use strict\';\r\n\r\nimport Tooltip from \'react-responsible-tooltip\';\r\nimport React from \'react\';\r\n\r\nconst Example = React.createClass({\r\n\trender() {\r\n\t\treturn (\r\n\t\t\t<div>\r\n\t\t\t\t<h1>Simple tooltip example</h1>\r\n\t\t\t\t\r\n\t\t\t\t<Tooltip>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<div>My tooltip text</div>\r\n\t\t\t\t\t\t<div>Could be html or another React components\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</Tooltip>\r\n\t\t\t\t\r\n\t\t\t\t<h1>Customize the trigger tooltip example</h1>\r\n\t\t\t\t\r\n\t\t\t\tconst trigger = \'<span style={{pointer: \'help\'}}>Could be text trigger also</span>\';\r\n\t\t\t\t<Tooltip btnLayout={trigger}>\r\n\t\t\t\t\t<div>Another tooltip text</div>\r\n\t\t\t\t</Tooltip>\r\n\t\t\t</div>\r\n\t\t);\r\n\t}\r\n});\r\n\r\nexport default Example;\r\n```\r\n',
+29 silly publish   readmeFilename: 'README.md',
+29 silly publish   gitHead: 'cb2a63f9c43cb1566122916044e00b7a07b905ea',
+29 silly publish   bugs: { url: 'https://github.com/ganmor/react-tooltip/issues' },
+29 silly publish   homepage: 'https://github.com/ganmor/react-tooltip',
+29 silly publish   _id: 'react-responsive-tooltip@0.0.4',
+29 silly publish   scripts: {},
+29 silly publish   _shasum: '323231fc691d9bcf7fa1c133097f4fc0e21aac00',
+29 silly publish   _from: '.' }
+30 verbose request where is /react-responsive-tooltip
+31 verbose request registry https://registry.npmjs.org/
+32 verbose request id 98ed912b39690ea8
+33 verbose url raw /react-responsive-tooltip
+34 verbose url resolving [ 'https://registry.npmjs.org/', './react-responsive-tooltip' ]
+35 verbose url resolved https://registry.npmjs.org/react-responsive-tooltip
+36 verbose request where is https://registry.npmjs.org/react-responsive-tooltip
+37 info trying registry request attempt 1 at 18:55:32
+38 http PUT https://registry.npmjs.org/react-responsive-tooltip
+39 http 403 https://registry.npmjs.org/react-responsive-tooltip
+40 verbose headers { 'content-type': 'application/json',
+40 verbose headers   'cache-control': 'max-age=60',
+40 verbose headers   'content-length': '95',
+40 verbose headers   'accept-ranges': 'bytes',
+40 verbose headers   date: 'Thu, 18 Jun 2015 16:55:35 GMT',
+40 verbose headers   via: '1.1 varnish',
+40 verbose headers   connection: 'keep-alive',
+40 verbose headers   'x-served-by': 'cache-fra1233-FRA',
+40 verbose headers   'x-cache': 'MISS',
+40 verbose headers   'x-cache-hits': '0',
+40 verbose headers   'x-timer': 'S1434646534.459989,VS0,VE1277' }
+41 error publish Failed PUT 403
+42 error Error: "You cannot publish over the previously published version 0.0.4." : react-responsive-tooltip
+42 error     at RegClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:308:14)
+42 error     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:246:65)
+42 error     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:236:22)
+42 error     at Request.emit (events.js:98:17)
+42 error     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1142:14)
+42 error     at Request.emit (events.js:117:20)
+42 error     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1096:12)
+42 error     at IncomingMessage.emit (events.js:117:20)
+42 error     at _stream_readable.js:943:16
+42 error     at process._tickCallback (node.js:419:13)
+43 error If you need help, you may report this *entire* log,
+43 error including the npm and node versions, at:
+43 error     <http://github.com/npm/npm/issues>
+44 error System Windows_NT 6.1.7601
+45 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+46 error cwd C:\DEV\workspace\react-tooltip
+47 error node -v v0.10.33
+48 error npm -v 1.4.28
+49 verbose exit [ 1, true ]

@@ -3,6 +3,8 @@ A React responsive and customizable tooltip component
 Works on desktop and touch device.
 Displayed on touch on touch device, hidden when any part of the page is touched again
 
+[![](https://img.shields.io/npm/v/react-responsive-tooltip.svg)](https://www.npmjs.com/package/react-responsive-tooltip)
+
 # Basic Usage
 
 The tooltip has a default style and a default positionning configuration
