@@ -16,13 +16,13 @@ The tooltip has a default style and a default positionning configuration
 
 Available Props
 
-className
-style
+- className
+- style
 
-btnClassName
-btnStyle
+- btnClassName
+- btnStyle
 
-innerStyle
-displayed
+- innerStyle
+- displayed
 
 
