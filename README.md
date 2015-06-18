@@ -7,7 +7,8 @@ Displayed on touch on touch device, hidden when any part of the page is touched 
 
 The tooltip has a default style and a default positionning configuration
 
+```
 <ToolTip>
   My fabulous tooltip content
 </ToolTip>
-
+```
