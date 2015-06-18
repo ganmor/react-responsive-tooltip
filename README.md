@@ -4,6 +4,7 @@ Works on desktop and touch device.
 Displayed on touch on touch device, hidden when any part of the page is touched again
 
 [![](https://img.shields.io/npm/v/react-responsive-tooltip.svg)](https://www.npmjs.com/package/react-responsive-tooltip)
+[![](https://img.shields.io/npm/dm/react-responsive-tooltip.svg)](https://www.npmjs.com/package/react-responsive-tooltip)
 
 # Basic Usage
 
