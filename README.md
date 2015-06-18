@@ -16,4 +16,13 @@ The tooltip has a default style and a default positionning configuration
 
 Available Props
 
+className :  React.PropTypes.string,
+style :  React.PropTypes.object,
+
+btnClassName : React.PropTypes.string,
+btnStyle :  React.PropTypes.object,
+
+innerStyle : React.PropTypes.object,
+displayed : React.PropTypes.boolean
+
 
