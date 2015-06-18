@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-tooltip",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A react responsive tooltip component",
   "author": {
     "name": "Morgan Laupies <morgan.laupies@gmail.com>"
@@ -8,7 +8,7 @@
   "main": "src/script/tooltip.jsx",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ganmor/react-tooltip.git"
+    "url": "https://github.com/ganmor/react-responsive-tooltip"
   },
   "src": "src",
   "test": "test",
@@ -16,6 +16,12 @@
     "immutable": "^3.7.4",
     "react": "0.13.3"
   },
+	 "keywords": [
+    "react",
+    "component",
+    "tooltip",
+    "tooltip"
+  ],
   "devDependencies": {
     "babel-core": "^5.0.12",
     "babel-loader": "^5.0.0",
