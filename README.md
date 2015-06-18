@@ -12,3 +12,8 @@ The tooltip has a default style and a default positionning configuration
   My fabulous tooltip content
 </ToolTip>
 ```
+
+
+Available Props
+
+
