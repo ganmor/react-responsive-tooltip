@@ -1,35 +1,21 @@
 /*global window, document */
 'use strict';
 
-var React = require("react");
-var TooltipInner = require('./tooltip-inner');
-var TooltipTrigger = require('./tooltip-trigger');
-
+import React from 'react';
+import TooltipInner from './tooltip-inner';
+import TooltipTrigger from './tooltip-trigger';
+import DomUtils from './dom-utils';
 
 
 /*
-*	A tooltip component that has a default style
-*/
+ * A tooltip component that has a default style
+ */
 
 
 /** The Main component container **/
-var ToolTipOuter = React.createClass({
-
-	statics : {
-		isDescendant : function(parent, child) {
-				 var node = child.parentNode;
-				 while (node !== null) {
-						 if (node === parent) {
-								 return true;
-						 }
-						 node = node.parentNode;
-				 }
-				 return false;
-		}
-	},
+const ToolTipOuter = React.createClass({
 
 	propTypes: {
-
 		/* Style and className of the container */
 		className :  React.PropTypes.string,
 		style :  React.PropTypes.object,
@@ -47,8 +33,7 @@ var ToolTipOuter = React.createClass({
 	//	Life Cycle
 	//
 
-
-	getInitialState : function () {
+	getInitialState() {
 		return {
 			displayed : this.props.displayed,
 			clicked : false,
@@ -56,40 +41,38 @@ var ToolTipOuter = React.createClass({
 		};
 	},
 
-	componentDidMount : function () {
+	componentDidMount() {
 		document.addEventListener('mousemove', this.handleMouseMove);
 		this.setState({
 			position : this.getDOMNode().getBoundingClientRect()
 		});
 	},
 
-
-	componentWillReceiveProps : function () {
+	componentWillReceiveProps() {
 		this.setState({
 			position : this.getDOMNode().getBoundingClientRect()
 		});
 	},
 
-  componentWillUnmount: function () {
-    document.removeEventListener('mousemove', this.handleMouseMove);
-  },
+	componentWillUnmount() {
+		document.removeEventListener('mousemove', this.handleMouseMove);
+	},
 
-	handleMouseMove: function(e) {
+	handleMouseMove(e) {
 		var target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || ToolTipOuter.isDescendant(this.getDOMNode(), target)) {
+		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();
 		}
-  },
-
+	},
 
 
 	//
 	//	State Control
 	//
 
-	toggle : function () {
+	toggle() {
 		if (this.state.clicked) {
 			this.setTooltipUnclicked();
 		} else {
@@ -97,46 +80,44 @@ var ToolTipOuter = React.createClass({
 		}
 	},
 
-	setTooltipUnclicked : function () {
+	setTooltipUnclicked() {
 		this.setState({
 			clicked : false
 		});
 	},
 
-	setTooltipClicked : function () {
+	setTooltipClicked() {
 		this.setState({
 			clicked : true
 		});
 	},
 
-	setTooltipDisplayed : function () {
+	setTooltipDisplayed() {
 		this.setState({
 			displayed : true,
 			position : this.getDOMNode().getBoundingClientRect()
 		});
 	},
 
-	setTooltipHidden: function () {
+	setTooltipHidden() {
 		this.setState({
 			displayed : false
 		});
 	},
 
+
 	//
 	//	Rendering logic
 	//
 
-	render : function () {
-		var style, className;
-
-		style = this.props.style || {};
+	render() {
+		const style = this.props.style || {};
 		style.position = 'relative';
 
-		className = className += " " + this.props.className;
+		const className = this.props.className || '';
 
 		return (
-			<div style={style} className={className}>
-
+			<span style={style} className={className}>
 				<TooltipTrigger className={this.props.btnClassName}
 						onToggle={this.toggle}
 						tooltipDisplayed={this.state.displayed}
@@ -146,23 +127,18 @@ var ToolTipOuter = React.createClass({
 				</TooltipTrigger>
 
 				{(this.state.displayed || this.state.clicked) &&
-					(<TooltipInner
-							position={this.state.position}
+					(<TooltipInner position={this.state.position}
 							onHideRequest={this.setTooltipUnclicked}
 							clicked={this.state.clicked}
 							style={this.props.innerStyle}>
 						{this.props.children}
 					</TooltipInner>
 				)}
-
-			</div>
+			</span>
 		);
 	}
 });
 
 
-
 /* Exports, amd will come as a feature request */
-module.exports = ToolTipOuter;
-
-
+export default ToolTipOuter;
