@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require("react");
-var objectAssign = require('object-assign');
 var TooltipInner = require('./tooltip-inner');
 var TooltipTrigger = require('./tooltip-trigger');
 
@@ -130,10 +129,9 @@ var ToolTipOuter = React.createClass({
 	render : function () {
 		var style, className;
 
-		style = {};
+		style = this.props.style || {};
 		style.position = 'relative';
 
-		objectAssign(style, this.props.style);
 		className = className += " " + this.props.className;
 
 		return (
