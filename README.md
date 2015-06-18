@@ -3,7 +3,7 @@ A React responsive and customizable tooltip component
 Works on desktop and touch device.
 Displayed on touch on touch device, hidden when any part of the page is touched again
 
-## Basic Usage
+# Basic Usage
 
 The tooltip has a default style and a default positionning configuration
 
@@ -13,18 +13,17 @@ The tooltip has a default style and a default positionning configuration
 </ToolTip>
 ```
 
+## Available Props
 
-Available Props
 
-- className
-- style
-
-- btnClassName
-- btnStyle
-
-- innerStyle
-- displayed
-
+| Prop name     | Prop type     | Default   |
+| ------------- |:-------------:| ---------:|
+| className     | string        | undefined |
+| style         | object        | undefined |
+| btnClassName  | string        | undefined |
+| btnStyle      | object        | undefined |
+| innerStyle    | object        | undefined |
+| displayed     | bool          | false     |
 
 
 # Customization
