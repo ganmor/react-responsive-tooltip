@@ -28,7 +28,7 @@ const TooltipTrigger = React.createClass({
 		onDisplayRequest: React.PropTypes.func
 	},
 
-	onClick(e) {
+	onClick(/*e*/) {
 		this.props.onToggle();
 	},
 

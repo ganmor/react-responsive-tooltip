@@ -1,4 +1,3 @@
-/*global window, document */
 'use strict';
 
 import React from 'react';
@@ -26,7 +25,7 @@ const ToolTipOuter = React.createClass({
 
 		/* Style and class of the tooltip content */
 		innerStyle : React.PropTypes.object,
-		displayed : React.PropTypes.boolean
+		displayed : React.PropTypes.bool
 	},
 
 	//
@@ -43,9 +42,18 @@ const ToolTipOuter = React.createClass({
 
 	componentDidMount() {
 		document.addEventListener('mousemove', this.handleMouseMove);
+
+		this.tooltipInnerDiv = document.createElement("div");
+		document.body.appendChild(this.tooltipInnerDiv);
+		this._renderTooltipInner();
+
 		this.setState({
 			position : this.getDOMNode().getBoundingClientRect()
 		});
+	},
+
+	componentDidUpdate() {
+		this._renderTooltipInner();
 	},
 
 	componentWillReceiveProps() {
@@ -56,6 +64,9 @@ const ToolTipOuter = React.createClass({
 
 	componentWillUnmount() {
 		document.removeEventListener('mousemove', this.handleMouseMove);
+
+		React.unmountComponentAtNode(this.tooltipInnerDiv);
+		document.body.removeChild(this.tooltipInnerDiv);
 	},
 
 	handleMouseMove(e) {
@@ -110,6 +121,21 @@ const ToolTipOuter = React.createClass({
 	//	Rendering logic
 	//
 
+	_renderTooltipInner() {
+		if (this.state.displayed || this.state.clicked) {
+			const props = {
+				position: this.state.position,
+				onHideRequest: this.setTooltipUnclicked,
+				clicked: this.state.clicked,
+				style: this.props.innerStyle
+			};
+			const tooltipInner = React.createElement(TooltipInner, props, this.props.children);
+			React.render(tooltipInner, this.tooltipInnerDiv);
+		} else {
+			React.unmountComponentAtNode(this.tooltipInnerDiv);
+		}
+	},
+
 	render() {
 		const style = this.props.style || {};
 		style.position = 'relative';
@@ -125,15 +151,6 @@ const ToolTipOuter = React.createClass({
 						style={this.props.btnStyle}>
 						{this.props.btnLayout}
 				</TooltipTrigger>
-
-				{(this.state.displayed || this.state.clicked) &&
-					(<TooltipInner position={this.state.position}
-							onHideRequest={this.setTooltipUnclicked}
-							clicked={this.state.clicked}
-							style={this.props.innerStyle}>
-						{this.props.children}
-					</TooltipInner>
-				)}
 			</span>
 		);
 	}

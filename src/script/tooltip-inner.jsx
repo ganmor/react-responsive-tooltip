@@ -1,37 +1,29 @@
-/*global window, document */
 'use strict';
 
 import React from 'react';
 import DomUtils from './dom-utils';
+
+import defaultStyle from './styles/tooltip-inner';
 
 /* The content of the tooltip while fully displayed */
 const TooltipInner = React.createClass({
 
 	propTypes: {
 		/* Customize style */
-		className :  React.PropTypes.string,
-		style :  React.PropTypes.object,
+		className: React.PropTypes.string,
+		style: React.PropTypes.object,
+		position: React.PropTypes.object,
 
 		/* Force the width of the inner tooltip */
-		width : React.PropTypes.string,
-		height : React.PropTypes.string
+		width: React.PropTypes.string,
+		height: React.PropTypes.string
 	},
 
 	getInitialState() {
 		var overlay = document.createElement('div');
 		return {
-			visible : false,
-			overlayDiv : overlay,
-			position : null
-		};
-	},
-
-	getDefaultStyle() {
-		return {
-			position: 'absolute',
-			background: '#000000',
-			padding: '5px',
-			color: 'white'
+			visible: false,
+			overlayDiv: overlay
 		};
 	},
 
@@ -86,11 +78,7 @@ const TooltipInner = React.createClass({
 	},
 
 	getMaxWidth() {
-		if (this.getHorizontalDir() === 'left') {
-			return this.state.position.left;
-		} else  {
-			return DomUtils.getParentOverflowScroll(this.state.containingNode).innerWidth - this.state.position.left;
-		}
+		return DomUtils.getParentOverflowScroll(this.state.containingNode).innerWidth - this.props.position.left;
 	},
 
 	getMaxHeight() { // TODO
@@ -103,7 +91,7 @@ const TooltipInner = React.createClass({
 	},
 
 	_renderOverlay() {
-		if (!this.state.containingNode || !this.state.position) {
+		if (!this.state.containingNode || !this.props.position) {
 			return (<span></span>);
 		}
 
@@ -112,20 +100,20 @@ const TooltipInner = React.createClass({
 		}
 
 		const style = {
-			position:'fixed',
-			opacity:'0',
-			background:'rgba(0,0,0)',
-			cursor:'pointer',
-			width:'100%',
-			height:'100%',
-			top:'0',
-			left:'0'
+			position: 'fixed',
+			opacity: '0',
+			background: 'rgba(0,0,0)',
+			cursor: 'pointer',
+			width: '100%',
+			height: '100%',
+			top: '0',
+			left: '0'
 		};
 
 		return (<div style={style} onClick={this.handleOverlayClick}>this should be transparent overlay that cover the whole window</div>);
 	},
 
-	getHorizontalDir(dir) {
+	/*getHorizontalDir() {
 		if (this.props.horizontalDir === 'left' || this.props.horizontalDir === 'right') {
 			return this.props.horizontalDir;
 		}
@@ -134,32 +122,27 @@ const TooltipInner = React.createClass({
 
 	getVerticalDir(dir) {
 		return dir;
-	},
+	},*/
 
 	render() {
-		const style = this.getDefaultStyle();
-		const windowWidth = window.innerWidth;
-		const windowHeight = windowWidth.innerHeight;
+		const style = this.props.style || defaultStyle.toJS();
 
-		if (!this.state.containingNode || !this.state.position) {
+		//const windowWidth = window.innerWidth;
+		//const windowHeight = windowWidth.innerHeight;
+
+		if (!this.state.containingNode || !this.props.position) {
 			return <span />;
 		}
 
-		const verticalDir = this.getVerticalDir();
-		const horizontalDir = this.getHorizontalDir();
+		//const verticalDir = this.getVerticalDir();
+		//const horizontalDir = this.getHorizontalDir();
 
-		if (verticalDir === 'left') {
-			style.right = 0;
-		} else {
-			style.left = 0;
-		}
+		// React.findDOMNode(this).innerHeight;
+		// this.getDOMNode().innerHeight
 
-		if (horizontalDir === 'top') {
-			style.bottom = DomUtils.getParentOverflowScroll(this.state.containingNode) - this.state.position.top;
-		} else {
-			style.top = this.state.position.height;
-		}
 
+		style.left = this.props.position.left;
+		style.top = this.props.position.top + this.props.position.height + 5; // 5px of margin
 		style.maxWidth = this.getMaxWidth();
 
 		return <span style={style}>{this.props.children}</span>;

@@ -14,7 +14,7 @@
 	"quotmark": "false",
 	"regexp": true,
 	"undef": true,
-	"unused": false,
+	"unused": true,
 	"strict": true,
 	"trailing": true,
 	"smarttabs": true,
@@ -22,6 +22,8 @@
 	"newcap": false,
 	"globals": {
 		"require": true,
-		"module": true
+		"module": true,
+		"document": true,
+		"window": true
 	}
 }
