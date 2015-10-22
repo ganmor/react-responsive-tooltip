@@ -28,5 +28,6 @@ $RECYCLE.BIN/
 # App specific
 
 node_modules/
+npm-debug.log
 .tmp
 dist
