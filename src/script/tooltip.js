@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import TooltipInner from './tooltip-inner';
 import TooltipTrigger from './tooltip-trigger';
@@ -16,16 +14,18 @@ const ToolTipOuter = React.createClass({
 
 	propTypes: {
 		/* Style and className of the container */
-		className :  React.PropTypes.string,
-		style :  React.PropTypes.object,
+		className: React.PropTypes.string,
+		style: React.PropTypes.object,
 
 		/* Style and class of the tooltip trigger */
-		btnClassName : React.PropTypes.string,
-		btnStyle :  React.PropTypes.object,
+		btnClassName: React.PropTypes.string,
+		btnStyle: React.PropTypes.object,
 
 		/* Style and class of the tooltip content */
-		innerStyle : React.PropTypes.object,
-		displayed : React.PropTypes.bool
+		innerStyle: React.PropTypes.object,
+		displayed: React.PropTypes.bool,
+		btnLayout: React.PropTypes.node.isRequired,
+		children: React.PropTypes.node.isRequired,
 	},
 
 	//
@@ -34,9 +34,9 @@ const ToolTipOuter = React.createClass({
 
 	getInitialState() {
 		return {
-			displayed : this.props.displayed,
-			clicked : false,
-			position : null
+			displayed: this.props.displayed,
+			clicked: false,
+			position: null
 		};
 	},
 
@@ -47,19 +47,19 @@ const ToolTipOuter = React.createClass({
 		document.body.appendChild(this.tooltipInnerDiv);
 		this._renderTooltipInner();
 
+		/*this.setState({
+			position: this.getDOMNode().getBoundingClientRect()
+		});*/
+	},
+
+	componentWillReceiveProps() {
 		this.setState({
-			position : this.getDOMNode().getBoundingClientRect()
+			position: this.getDOMNode().getBoundingClientRect()
 		});
 	},
 
 	componentDidUpdate() {
 		this._renderTooltipInner();
-	},
-
-	componentWillReceiveProps() {
-		this.setState({
-			position : this.getDOMNode().getBoundingClientRect()
-		});
 	},
 
 	componentWillUnmount() {
@@ -69,19 +69,35 @@ const ToolTipOuter = React.createClass({
 		document.body.removeChild(this.tooltipInnerDiv);
 	},
 
-	handleMouseMove(e) {
-		var target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
-			this.setTooltipDisplayed();
-		} else {
-			this.setTooltipHidden();
-		}
-	},
-
 
 	//
 	//	State Control
 	//
+
+	setTooltipUnclicked() {
+		this.setState({
+			clicked: false
+		});
+	},
+
+	setTooltipClicked() {
+		this.setState({
+			clicked: true
+		});
+	},
+
+	setTooltipDisplayed() {
+		this.setState({
+			displayed: true,
+			position: this.getDOMNode().getBoundingClientRect()
+		});
+	},
+
+	setTooltipHidden() {
+		this.setState({
+			displayed: false
+		});
+	},
 
 	toggle() {
 		if (this.state.clicked) {
@@ -91,31 +107,14 @@ const ToolTipOuter = React.createClass({
 		}
 	},
 
-	setTooltipUnclicked() {
-		this.setState({
-			clicked : false
-		});
+	handleMouseMove(e) {
+		const target = document.elementFromPoint(e.pageX, e.pageY);
+		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
+			this.setTooltipDisplayed();
+		} else {
+			this.setTooltipHidden();
+		}
 	},
-
-	setTooltipClicked() {
-		this.setState({
-			clicked : true
-		});
-	},
-
-	setTooltipDisplayed() {
-		this.setState({
-			displayed : true,
-			position : this.getDOMNode().getBoundingClientRect()
-		});
-	},
-
-	setTooltipHidden() {
-		this.setState({
-			displayed : false
-		});
-	},
-
 
 	//
 	//	Rendering logic
@@ -149,7 +148,7 @@ const ToolTipOuter = React.createClass({
 						tooltipDisplayed={this.state.displayed}
 						clicked={this.state.clicked}
 						style={this.props.btnStyle}>
-						{this.props.btnLayout}
+					{this.props.btnLayout}
 				</TooltipTrigger>
 			</span>
 		);

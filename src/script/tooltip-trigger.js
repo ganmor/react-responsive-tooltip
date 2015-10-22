@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 
 const DEFAULT_STYLE = {
@@ -25,10 +23,12 @@ const TooltipTrigger = React.createClass({
 		className: React.PropTypes.string,
 		style: React.PropTypes.object,
 		onHideRequest: React.PropTypes.func,
-		onDisplayRequest: React.PropTypes.func
+		onDisplayRequest: React.PropTypes.func,
+		onToggle: React.PropTypes.func.isRequired,
+		children: React.PropTypes.node,
 	},
 
-	onClick(/*e*/) {
+	onClick(e) {
 		this.props.onToggle();
 	},
 

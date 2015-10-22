@@ -1,19 +1,11 @@
-
-/*global document */
-
-'use strict';
-
-var Tooltip = require('./tooltip.jsx');
-var React = require('react');
-var ColorPicker = require('react-color-picker');
-var Draggable = require("react-draggable");
+import React from 'react';
+import Tooltip from './tooltip';
+import ColorPicker from 'react-color-picker';
+import Draggable from 'react-draggable';
 import './lib/color-picker.css';
 
-
-
-
-var ExampleSheet = React.createClass({
-	render : function () {
+const ExampleSheet = React.createClass({
+	render() {
 		return (
 			<div>
 				<h1>Here is a serie of tooltip example</h1>
@@ -29,26 +21,19 @@ var ExampleSheet = React.createClass({
 					</div>
 				</Draggable>
 
-
 				<h2>Customizz the tooltip trigger</h2>
 
-					<Tooltip>
-						<div>
-							<ColorPicker  />
-						</div>
-					</Tooltip>
-
+				<Tooltip>
+					<div>
+						<ColorPicker  />
+					</div>
+				</Tooltip>
 
 				<h2>Customize the tooltip inner content</h2>
 				<p> Tooltip inner is just a react component. Thus it can contain anything, including other react components</p>
-
-
 			</div>
 		);
 	}
 });
 
-
-
 React.render(<ExampleSheet />, document.querySelector('#tooltip-container'));
-

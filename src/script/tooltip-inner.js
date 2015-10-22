@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import DomUtils from './dom-utils';
 
@@ -16,11 +14,14 @@ const TooltipInner = React.createClass({
 
 		/* Force the width of the inner tooltip */
 		width: React.PropTypes.string,
-		height: React.PropTypes.string
+		height: React.PropTypes.string,
+		onHideRequest: React.PropTypes.func.isRequired,
+		clicked: React.PropTypes.bool,
+		children: React.PropTypes.node.isRequired
 	},
 
 	getInitialState() {
-		var overlay = document.createElement('div');
+		const overlay = document.createElement('div');
 		return {
 			visible: false,
 			overlayDiv: overlay
@@ -32,39 +33,30 @@ const TooltipInner = React.createClass({
 	//	Life cycle
 	//
 
-	componentDidUpdate() {
-		React.render(this._renderOverlay(), this.state.overlayDiv);
-	},
-
 	componentDidMount() {
 		document.body.appendChild(this.state.overlayDiv);
 		React.render(this._renderOverlay(), this.state.overlayDiv);
 
-		this.setState({
-			containingNode : this.getDOMNode(),
-			position : this.props.position
-		});
+		/*this.setState({
+			containingNode: this.getDOMNode(),
+			position: this.props.position
+		});*/
 	},
 
 	componentWillReceiveProps() {
 		this.setState({
-			containingNode : this.getDOMNode(),
-			position : this.props.position
+			containingNode: this.getDOMNode(),
+			position: this.props.position
 		});
+	},
+
+	componentDidUpdate() {
+		React.render(this._renderOverlay(), this.state.overlayDiv);
 	},
 
 	componentWillUnmount() {
 		if (this.state.overlayDiv && this.state.overlayDiv.parentNode) {
 			this.state.overlayDiv.parentNode.removeChild(this.state.overlayDiv);
-		}
-	},
-
-	handleMouseMove(e) {
-		var target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
-			this.setTooltipDisplayed();
-		} else {
-			this.setTooltipHidden();
 		}
 	},
 
@@ -83,6 +75,15 @@ const TooltipInner = React.createClass({
 
 	getMaxHeight() { // TODO
 
+	},
+
+	handleMouseMove(e) {
+		const target = document.elementFromPoint(e.pageX, e.pageY);
+		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
+			this.setTooltipDisplayed();
+		} else {
+			this.setTooltipHidden();
+		}
 	},
 
 	handleOverlayClick(e) {

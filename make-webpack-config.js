@@ -60,7 +60,7 @@ function buildConfig(options) {
 
 	// js/jsx loader
 	var jsLoader = {
-		test: /\.(js|jsx)$/,
+		test: /\.js$/,
 		include: currentSrc
 	};
 	if (!dev) {
@@ -82,14 +82,14 @@ function buildConfig(options) {
 		},
 
 		resolve: {
-			extensions: ['', '.js', '.jsx']
+			extensions: ['', '.js']
 		},
 
 		module: {
 			preLoaders: [{
 				test: /\.(js|jsx)$/,
 				include: currentSrc,
-				loader: 'jsxhint'
+				loader: 'eslint'
 			}],
 			loaders: [
 				{ test: /\.css$/, loader: 'style-loader!css-loader' },

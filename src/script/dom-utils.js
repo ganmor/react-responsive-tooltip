@@ -1,9 +1,7 @@
-'use strict';
-
 class DomUtils {
 
 	static isDescendant(parent, child) {
-		var node = child.parentNode;
+		let node = child.parentNode;
 		while (node !== null) {
 			if (node === parent) {
 				return true;
@@ -18,8 +16,8 @@ class DomUtils {
 			return document.body;
 		}
 
-		for (var el = target; el; el = el.parentElement) {
-			var overflowY = window.getComputedStyle(el).overflowY;
+		for (let el = target; el; el = el.parentElement) {
+			const overflowY = window.getComputedStyle(el).overflowY;
 			if (overflowY === 'auto' || overflowY === 'scroll') {
 				return  el;
 			}
