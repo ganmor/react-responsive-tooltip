@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import TooltipInner from './tooltip-inner';
 import TooltipTrigger from './tooltip-trigger';
 import DomUtils from './dom-utils';
@@ -24,7 +26,7 @@ const ToolTipOuter = React.createClass({
 		/* Style and class of the tooltip content */
 		innerStyle: React.PropTypes.object,
 		displayed: React.PropTypes.bool,
-		btnLayout: React.PropTypes.node.isRequired,
+		btnLayout: React.PropTypes.node,
 		children: React.PropTypes.node.isRequired,
 	},
 
@@ -46,15 +48,11 @@ const ToolTipOuter = React.createClass({
 		this.tooltipInnerDiv = document.createElement("div");
 		document.body.appendChild(this.tooltipInnerDiv);
 		this._renderTooltipInner();
-
-		/*this.setState({
-			position: this.getDOMNode().getBoundingClientRect()
-		});*/
 	},
 
 	componentWillReceiveProps() {
 		this.setState({
-			position: this.getDOMNode().getBoundingClientRect()
+			position: ReactDOM.findDOMNode(this).getBoundingClientRect()
 		});
 	},
 
@@ -89,7 +87,7 @@ const ToolTipOuter = React.createClass({
 	setTooltipDisplayed() {
 		this.setState({
 			displayed: true,
-			position: this.getDOMNode().getBoundingClientRect()
+			position: ReactDOM.findDOMNode(this).getBoundingClientRect()
 		});
 	},
 
@@ -108,8 +106,9 @@ const ToolTipOuter = React.createClass({
 	},
 
 	handleMouseMove(e) {
+		const domNode = ReactDOM.findDOMNode(this);
 		const target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
+		if (target === domNode || DomUtils.isDescendant(domNode, target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();
@@ -129,9 +128,9 @@ const ToolTipOuter = React.createClass({
 				style: this.props.innerStyle
 			};
 			const tooltipInner = React.createElement(TooltipInner, props, this.props.children);
-			React.render(tooltipInner, this.tooltipInnerDiv);
+			ReactDOM.render(tooltipInner, this.tooltipInnerDiv);
 		} else {
-			React.unmountComponentAtNode(this.tooltipInnerDiv);
+			ReactDOM.unmountComponentAtNode(this.tooltipInnerDiv);
 		}
 	},
 

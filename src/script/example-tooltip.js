@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import Tooltip from './tooltip';
 import ColorPicker from 'react-color-picker';
 import Draggable from 'react-draggable';
@@ -36,4 +38,4 @@ const ExampleSheet = React.createClass({
 	}
 });
 
-React.render(<ExampleSheet />, document.querySelector('#tooltip-container'));
+ReactDOM.render(<ExampleSheet />, document.querySelector('#tooltip-container'));

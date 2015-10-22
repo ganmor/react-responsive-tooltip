@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import DomUtils from './dom-utils';
 
 import defaultStyle from './styles/tooltip-inner';
@@ -35,23 +36,18 @@ const TooltipInner = React.createClass({
 
 	componentDidMount() {
 		document.body.appendChild(this.state.overlayDiv);
-		React.render(this._renderOverlay(), this.state.overlayDiv);
-
-		/*this.setState({
-			containingNode: this.getDOMNode(),
-			position: this.props.position
-		});*/
+		ReactDOM.render(this._renderOverlay(), this.state.overlayDiv);
 	},
 
 	componentWillReceiveProps() {
 		this.setState({
-			containingNode: this.getDOMNode(),
+			containingNode: ReactDOM.findDOMNode(this),
 			position: this.props.position
 		});
 	},
 
 	componentDidUpdate() {
-		React.render(this._renderOverlay(), this.state.overlayDiv);
+		ReactDOM.render(this._renderOverlay(), this.state.overlayDiv);
 	},
 
 	componentWillUnmount() {
@@ -78,8 +74,9 @@ const TooltipInner = React.createClass({
 	},
 
 	handleMouseMove(e) {
+		const domNode = ReactDOM.findDOMNode(this);
 		const target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === this.getDOMNode() || DomUtils.isDescendant(this.getDOMNode(), target)) {
+		if (target === domNode || DomUtils.isDescendant(domNode, target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();
