@@ -12,17 +12,17 @@
   },
   "src": "src",
   "test": "test",
-  "dependencies": {
-    "immutable": "^3.7.4",
-    "react": "0.14.0",
-    "react-dom": "0.14.0"
-  },
   "keywords": [
     "react",
     "component",
     "tooltip",
     "tooltip"
   ],
+	"dependencies": {
+    "immutable": "^3.7.4",
+    "react": "0.14.0",
+    "react-dom": "0.14.0"
+  },
   "devDependencies": {
     "babel-core": "5.8.22",
     "babel-eslint": "4.1.1",
