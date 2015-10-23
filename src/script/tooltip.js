@@ -38,12 +38,14 @@ const ToolTipOuter = React.createClass({
 		return {
 			displayed: this.props.displayed,
 			clicked: false,
-			position: null
+			position: null,
+			scrollTop: 0
 		};
 	},
 
 	componentDidMount() {
 		document.addEventListener('mousemove', this.handleMouseMove);
+		document.addEventListener('scroll', this.handleScroll);
 
 		this.tooltipInnerDiv = document.createElement("div");
 		document.body.appendChild(this.tooltipInnerDiv);
@@ -51,9 +53,7 @@ const ToolTipOuter = React.createClass({
 	},
 
 	componentWillReceiveProps() {
-		this.setState({
-			position: ReactDOM.findDOMNode(this).getBoundingClientRect()
-		});
+		this.updatePosition();
 	},
 
 	componentDidUpdate() {
@@ -62,6 +62,7 @@ const ToolTipOuter = React.createClass({
 
 	componentWillUnmount() {
 		document.removeEventListener('mousemove', this.handleMouseMove);
+		document.removeEventListener('scroll', this.handleScroll);
 
 		ReactDOM.unmountComponentAtNode(this.tooltipInnerDiv);
 		document.body.removeChild(this.tooltipInnerDiv);
@@ -87,13 +88,31 @@ const ToolTipOuter = React.createClass({
 	setTooltipDisplayed() {
 		this.setState({
 			displayed: true,
-			position: ReactDOM.findDOMNode(this).getBoundingClientRect()
+			position: this.getPosition()
 		});
 	},
 
 	setTooltipHidden() {
 		this.setState({
 			displayed: false
+		});
+	},
+
+	getPosition() {
+		const clientRect = ReactDOM.findDOMNode(this).getBoundingClientRect();
+		return {
+			bottom: clientRect.bottom,
+			height: clientRect.height,
+			left: clientRect.left,
+			right: clientRect.right,
+			top: clientRect.top + this.state.scrollTop,
+			width: clientRect.width
+		};
+	},
+
+	updatePosition() {
+		this.setState({
+			position: this.getPosition()
 		});
 	},
 
@@ -107,13 +126,19 @@ const ToolTipOuter = React.createClass({
 
 	handleMouseMove(e) {
 		const domNode = ReactDOM.findDOMNode(this);
-		const target = document.elementFromPoint(e.pageX, e.pageY);
-		if (target === domNode || DomUtils.isDescendant(domNode, target)) {
+		if (e.target === domNode || DomUtils.isDescendant(domNode, e.target)) {
 			this.setTooltipDisplayed();
 		} else {
 			this.setTooltipHidden();
 		}
 	},
+
+	handleScroll(e) {
+		const scrollTop = e.target.body.scrollTop;
+		this.setState({ scrollTop });
+		this.updatePosition();
+	},
+
 
 	//
 	//	Rendering logic
