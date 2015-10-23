@@ -1,7 +1,7 @@
 class DomUtils {
 
 	static isDescendant(parent, child) {
-		let node = child.parentNode;
+		let node = child && child.parentNode;
 		while (node !== null) {
 			if (node === parent) {
 				return true;
