@@ -63,7 +63,7 @@ const ToolTipOuter = React.createClass({
 	componentWillUnmount() {
 		document.removeEventListener('mousemove', this.handleMouseMove);
 
-		React.unmountComponentAtNode(this.tooltipInnerDiv);
+		ReactDOM.unmountComponentAtNode(this.tooltipInnerDiv);
 		document.body.removeChild(this.tooltipInnerDiv);
 	},
 
@@ -138,7 +138,7 @@ const ToolTipOuter = React.createClass({
 		const style = this.props.style || {};
 		style.position = 'relative';
 
-		const className = this.props.className || '';
+		const className = this.props.className || null;
 
 		return (
 			<span style={style} className={className}>
