@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-tooltip",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A react responsive tooltip component",
   "author": {
     "name": "Morgan Laupies <morgan.laupies@gmail.com>"
@@ -18,7 +18,7 @@
     "tooltip",
     "tooltip"
   ],
-	"dependencies": {
+  "dependencies": {
     "immutable": "^3.7.4",
     "react": "0.14.0",
     "react-dom": "0.14.0"
