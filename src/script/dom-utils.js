@@ -1,4 +1,4 @@
-class DomUtils {
+export default class DomUtils {
 
 	static isDescendant(parent, child) {
 		let node = child && child.parentNode;
@@ -25,5 +25,3 @@ class DomUtils {
 		return window;
 	}
 }
-
-export default DomUtils;

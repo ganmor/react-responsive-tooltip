@@ -20,13 +20,12 @@ const ToolTipOuter = React.createClass({
 		style: React.PropTypes.object,
 
 		/* Style and class of the tooltip trigger */
-		btnClassName: React.PropTypes.string,
-		btnStyle: React.PropTypes.object,
+		triggerStyle: React.PropTypes.object,
+		triggerLayout: React.PropTypes.node,
 
 		/* Style and class of the tooltip content */
 		innerStyle: React.PropTypes.object,
 		displayed: React.PropTypes.bool,
-		btnLayout: React.PropTypes.node,
 		children: React.PropTypes.node.isRequired,
 	},
 
@@ -167,12 +166,8 @@ const ToolTipOuter = React.createClass({
 
 		return (
 			<span style={style} className={className}>
-				<TooltipTrigger className={this.props.btnClassName}
-						onToggle={this.toggle}
-						tooltipDisplayed={this.state.displayed}
-						clicked={this.state.clicked}
-						style={this.props.btnStyle}>
-					{this.props.btnLayout}
+				<TooltipTrigger style={this.props.triggerStyle} onToggle={this.toggle}>
+					{this.props.triggerLayout}
 				</TooltipTrigger>
 			</span>
 		);

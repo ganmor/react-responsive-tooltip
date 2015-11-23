@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-const value = Immutable.Map({
+export default Immutable.Map({
 	backgroundColor: '#aaa',
 	color: 'white',
 	borderRadius: '10px',
@@ -15,5 +15,3 @@ const value = Immutable.Map({
 	display: 'inline-block',
 	textAlign: 'center'
 });
-
-export default value;
