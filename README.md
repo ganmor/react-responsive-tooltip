@@ -18,7 +18,6 @@ The tooltip has a default style and a default positionning configuration
 
 ## Available Props
 
-
 | Prop name     | Prop type     | Default   |
 | ------------- |:-------------:| ---------:|
 | className     | string        | undefined |
@@ -49,8 +48,6 @@ const triggerLayout = <span className='btn btn-default'>?</span>;
 	...
 </Tooltip>
 ```
-
-
 
 # Example
 
@@ -85,4 +82,21 @@ const Example = React.createClass({
 });
 
 export default Example;
+```
+
+# Compile es6 sources
+
+```sh
+$ npm run compile
+```
+Sources will be compiled with babel in the lib directory
+
+You must have Babel 6 installed in global
+```sh
+$ npm install --global babel-cli
+```
+
+Babel presets are in devDependencies, don't forget doing
+```sh
+$ npm install
 ```
