@@ -6,9 +6,9 @@
     "name": "Morgan Laupies <morgan.laupies@gmail.com>"
   },
   "main": "lib/script/tooltip.js",
-	"scripts": {
-		"compile": "babel src --out-dir lib --presets \"es2015,react,stage-0\""
-	},
+  "scripts": {
+    "compile": "babel src --out-dir lib --presets \"es2015,react,stage-0\""
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ganmor/react-responsive-tooltip"
@@ -30,7 +30,7 @@
     "babel-core": "5.8.22",
     "babel-eslint": "4.1.1",
     "babel-loader": "5.3.2",
-    "babel-plugin-react-transform": "1.0.2",
+    "babel-plugin-react-transform": "2.0.0-beta1",
     "babel-runtime": "5.8.20",
     "css-loader": "0.20.2",
     "eslint": "1.6.0",
