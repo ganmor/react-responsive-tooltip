@@ -7,7 +7,10 @@
   },
   "main": "lib/script/tooltip.js",
   "scripts": {
-    "compile": "babel src --out-dir lib --presets \"es2015,react,stage-0\""
+    "compile": "babel src --out-dir lib --presets \"es2015,react,stage-0\"",
+    "preversion": "babel src --out-dir lib --presets \"es2015,react,stage-0\"",
+    "postversion": "npm publish",
+    "postpublish": "git push origin master"
   },
   "repository": {
     "type": "git",
