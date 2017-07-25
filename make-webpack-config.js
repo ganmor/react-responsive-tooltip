@@ -6,10 +6,10 @@
  *
  * For production, config is set up for serving the distribution version. It will be compiled to dist/ by default
  */
-'use strict';
 
-var webpack = require("webpack");
-var path = require("path");
+
+const webpack = require("webpack");
+const path = require("path");
 
 /**
  * http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
@@ -19,31 +19,31 @@ function escapeRegExp(str) {
 }
 
 function buildConfig(options) {
-	var dev = options.dev;
+	const dev = options.dev;
 
 	// Include js-common as source path to be process by babel loader (jsx and ES6 support)
-	var currentSrc = escapeRegExp(path.join(__dirname, 'src'));
+	const currentSrc = escapeRegExp(path.join(__dirname, "src"));
 
 	// Entry
-	var entry;
+	let entry;
 	if (!dev) {
-		entry = './src/script/tooltip.jsx';
+		entry = "./src/script/tooltip.jsx";
 	} else {
-		console.log('is dev');
-		entry = ['webpack/hot/only-dev-server', './src/script/example-tooltip.jsx'];
+		console.log("is dev");
+		entry = ["webpack/hot/only-dev-server", "./src/script/example-tooltip.jsx"];
 	}
 
 	// Output
-	var output = {
-		publicPath: '/assets/',
-		filename: 'tooltip.bundle.js'
+	const output = {
+		publicPath: "/assets/",
+		filename: "tooltip.bundle.js"
 	};
 	if (!dev) {
-		output.path = 'dist/assets/';
+		output.path = "dist/assets/";
 	}
 
 	// Plugins
-	var plugins;
+	let plugins;
 	if (!dev) {
 		plugins = [
 			new webpack.optimize.DedupePlugin(),
@@ -52,24 +52,21 @@ function buildConfig(options) {
 			new webpack.optimize.AggressiveMergingPlugin()
 		];
 	} else {
-		plugins = [
-			new webpack.HotModuleReplacementPlugin(),
-			new webpack.NoErrorsPlugin()
-		];
+		plugins = [new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()];
 	}
 
 	// js/jsx loader
-	var jsLoader = {
+	const jsLoader = {
 		test: /\.js$/,
 		include: currentSrc
 	};
 	if (!dev) {
-		jsLoader.loader = 'babel-loader';
+		jsLoader.loader = "babel-loader";
 	} else {
-		jsLoader.loaders = ['react-hot-loader', 'babel-loader'];
+		jsLoader.loaders = ["react-hot-loader", "babel-loader"];
 	}
 
-	var config = {
+	const config = {
 		cache: dev,
 		debug: dev,
 
@@ -82,22 +79,23 @@ function buildConfig(options) {
 		},
 
 		resolve: {
-			extensions: ['', '.js']
+			extensions: ["", ".js"]
 		},
 
 		module: {
-			preLoaders: [{
-				test: /\.(js|jsx)$/,
-				include: currentSrc,
-				loader: 'eslint'
-			}],
+			preLoaders: [
+				{
+					test: /\.(js|jsx)$/,
+					include: currentSrc,
+					loader: "eslint"
+				}
+			],
 			loaders: [
-				{ test: /\.css$/, loader: 'style-loader!css-loader' },
-				{ test: /\.(jpe?g|png|gif)$/, loader: 'url-loader?limit=10000' },
+				{ test: /\.css$/, loader: "style-loader!css-loader" },
+				{ test: /\.(jpe?g|png|gif)$/, loader: "url-loader?limit=10000" },
 				{ test: /\.jsx$/, exclude: /node_modules/, loaders: dev ? ["react-hot-loader", "babel-loader"] : ["babel-loader"] }
 			]
 		},
-
 
 		plugins: plugins,
 
@@ -108,14 +106,13 @@ function buildConfig(options) {
 
 	// Add sourceMap for dev
 	if (dev) {
-		config.devtool = 'source-map';
+		config.devtool = "source-map";
 	}
 
 	return config;
 }
 
 module.exports = function(options) {
-
 	console.log(buildConfig(options));
 	return buildConfig(options);
 };

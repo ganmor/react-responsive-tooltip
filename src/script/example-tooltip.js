@@ -1,10 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Tooltip from './tooltip';
-import ColorPicker from 'react-color-picker';
-import Draggable from 'react-draggable';
-import './lib/color-picker.css';
+import Tooltip from "./tooltip";
+import "./lib/color-picker.css";
+
+const ExampleComponent = React.createClass({
+	render() {
+		return <div style={{ border: "10px solid #AAA" }}>ExampleComponent</div>;
+	}
+});
 
 const ExampleSheet = React.createClass({
 	render() {
@@ -14,21 +18,14 @@ const ExampleSheet = React.createClass({
 
 				<h2>Tooltip with a default layout</h2>
 				<p>React tooltip has a default style, this is the moist simple use case</p>
-				<p><i>You can drag the tooltip around while open to see the content adjust to the position</i></p>
-				<Draggable>
-					<div>
-						<Tooltip>
-							This is an example content, it has a default style but you can customize it to fit your needs
-						</Tooltip>
-					</div>
-				</Draggable>
+				<p>
+					<i>You can drag the tooltip around while open to see the content adjust to the position</i>
+				</p>
 
-				<h2>Customizz the tooltip trigger</h2>
+				<h2>Customize the tooltip trigger</h2>
 
 				<Tooltip>
-					<div>
-						<ColorPicker  />
-					</div>
+					<ExampleComponent />
 				</Tooltip>
 
 				<h2>Customize the tooltip inner content</h2>
@@ -38,4 +35,4 @@ const ExampleSheet = React.createClass({
 	}
 });
 
-ReactDOM.render(<ExampleSheet />, document.querySelector('#tooltip-container'));
+ReactDOM.render(<ExampleSheet />, document.querySelector("#tooltip-container"));
