@@ -44,9 +44,9 @@ const triggerStyle = defaultTriggerStyle.set('backgroundColor', 'blue');
 
 const triggerLayout = <span className='btn btn-default'>?</span>;
 
-<Tooltip triggerStyle={triggerStyle} triggerLayout={triggerLayout} innerStyle={innerStyle}>
+<ToolTip triggerStyle={triggerStyle} triggerLayout={triggerLayout} innerStyle={innerStyle}>
 	...
-</Tooltip>
+</ToolTip>
 ```
 
 # Example
@@ -54,7 +54,7 @@ const triggerLayout = <span className='btn btn-default'>?</span>;
 ```javascript
 'use strict';
 
-import Tooltip from 'react-responsible-tooltip';
+import ToolTip from 'react-responsive-tooltip';
 import React from 'react';
 
 const Example = React.createClass({
@@ -73,9 +73,9 @@ const Example = React.createClass({
 				<h1>Customize the trigger tooltip example</h1>
 
 				const trigger = '<span style={{pointer: 'help'}}>Could be text trigger also</span>';
-				<Tooltip btnLayout={trigger}>
+				<ToolTip btnLayout={trigger}>
 					<div>Another tooltip text</div>
-				</Tooltip>
+				</ToolTip>
 			</div>
 		);
 	}
