@@ -12,7 +12,7 @@ import DomUtils from './dom-utils';
 
 
 /** The Main component container **/
-const ToolTipOuter = React.createClass({
+const TooltipOuter = React.createClass({
 
 	propTypes: {
 		/* Style and className of the container */
@@ -176,4 +176,4 @@ const ToolTipOuter = React.createClass({
 
 
 /* Exports, amd will come as a feature request */
-export default ToolTipOuter;
+export default TooltipOuter;

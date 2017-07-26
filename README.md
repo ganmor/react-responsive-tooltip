@@ -11,9 +11,9 @@ Displayed on touch on touch device, hidden when any part of the page is touched 
 The tooltip has a default style and a default positionning configuration
 
 ```
-<ToolTip>
+<Tooltip>
   My fabulous tooltip content
-</ToolTip>
+</Tooltip>
 ```
 
 ## Available Props
@@ -44,9 +44,9 @@ const triggerStyle = defaultTriggerStyle.set('backgroundColor', 'blue');
 
 const triggerLayout = <span className='btn btn-default'>?</span>;
 
-<ToolTip triggerStyle={triggerStyle} triggerLayout={triggerLayout} innerStyle={innerStyle}>
+<Tooltip triggerStyle={triggerStyle} triggerLayout={triggerLayout} innerStyle={innerStyle}>
 	...
-</ToolTip>
+</Tooltip>
 ```
 
 # Example
@@ -54,7 +54,7 @@ const triggerLayout = <span className='btn btn-default'>?</span>;
 ```javascript
 'use strict';
 
-import ToolTip from 'react-responsive-tooltip';
+import Tooltip from 'react-responsive-tooltip';
 import React from 'react';
 
 const Example = React.createClass({
@@ -73,9 +73,9 @@ const Example = React.createClass({
 				<h1>Customize the trigger tooltip example</h1>
 
 				const trigger = '<span style={{pointer: 'help'}}>Could be text trigger also</span>';
-				<ToolTip btnLayout={trigger}>
+				<Tooltip btnLayout={trigger}>
 					<div>Another tooltip text</div>
-				</ToolTip>
+				</Tooltip>
 			</div>
 		);
 	}
