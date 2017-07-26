@@ -54,7 +54,7 @@ const triggerLayout = <span className='btn btn-default'>?</span>;
 ```javascript
 'use strict';
 
-import Tooltip from 'react-responsible-tooltip';
+import Tooltip from 'react-responsive-tooltip';
 import React from 'react';
 
 const Example = React.createClass({
